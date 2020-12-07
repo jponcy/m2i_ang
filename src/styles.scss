@@ -1,1 +1,92 @@
-/* You can add global styles to this file, and also import other style files */
+// Vars.
+
+$primary: orange;
+$card-padding: 15px;
+
+
+// Mixins.
+
+@mixin medium() {
+  @media screen and (min-width: 800px) and (max-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin large() {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+
+// Code.
+
+// .spacer { flex-grow: 1; }
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: 100%;
+  border: 1px solid silver;
+
+  padding: 0 $card-padding;
+  // padding-top: 0;
+  // padding-bottom: 0;
+  // padding-left: $card-padding;
+  // padding-right: $card-padding;
+
+  @include medium() {
+    width: 49%;
+    &:nth-child(2n+1) { margin-right: 3px; }
+  }
+
+  @include large() {
+    min-width: 400px;
+    width: 20%;
+    margin: 5px;
+  }
+
+  img {
+    width: 100%;
+    width: calc(100% + #{$card-padding * 2});
+    position: relative;
+    left: -$card-padding;
+  }
+
+  header {
+    h1 {
+      margin-bottom: 0;
+
+      // Style of cubtitle (card).
+      &+p {
+        margin-top: 0;
+        color: gray;
+      }
+    }
+    display: flex;
+    justify-content: space-between;
+  }
+
+  footer {
+    margin-bottom: $card-padding;
+
+    button {
+      cursor: pointer;
+      color: gray;
+      border: none;
+      background-color: inherit;
+      text-transform: uppercase;
+      font-size: 1.2em;
+
+      &:hover {
+        background-color: $primary;
+        color: black;
+      }
+      &:not(:last-of-type) { margin-right: 5px; }
+    }
+  }
+}
