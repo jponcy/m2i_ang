@@ -1,5 +1,12 @@
 <app-game-list-filter></app-game-list-filter>
 
+<p>
+  Bienvenue sur {{ title }}, 3 x 3 = {{ 3 * 3 }} !!!
+</p>
+
+<img [src]="img.url" [alt]="img.name" *ngIf="img && img.url">
+<img [src]="img.url" [alt]="img.name" *ngIf="img?.url">
+
 <section class="cards">
   <article class="card" *ngFor="let i of Array.from({length: 10})">
     <header>

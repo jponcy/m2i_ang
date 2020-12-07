@@ -1,0 +1,23 @@
+<table *ngIf="todos; else loading">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Fini ?</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let e of todos">
+      <td>{{ e.name }}</td>
+      <td>{{ e.finished ? 'Fini' : 'Pas fini' }}</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #loading>
+  <p class="text text-warning">
+    Chargement en cours...
+  </p>
+</ng-template>
