@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { GameGenre, genres as allGenres } from './models';
+import { GameGenre, genres as allGenres } from '../models';
 
 @Component({
   selector: 'app-game-list-filter',
