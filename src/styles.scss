@@ -39,6 +39,8 @@ $card-padding: 15px;
   // padding-left: $card-padding;
   // padding-right: $card-padding;
 
+  &:hover { border: 1px solid black; }
+
   @include medium() {
     width: 49%;
     &:nth-child(2n+1) { margin-right: 3px; }
