@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Game, games } from './models';
+import { Game, GameListActions, games } from './models';
 
 @Component({
   selector: 'app-game-list',
@@ -24,24 +24,7 @@ export class GameListComponent {
     return result;
   }
 
-  // Methode 1
-
-  onFollow(game: Game) {
-    window.alert(`User 'follow' ${game.title}`);
+  onActionClick(action: GameListActions, game: Game) {
+    window.alert(`User '${action}' ${game.title}`);
   }
-
-  onShare(game: Game) {
-    window.alert(`User 'share' ${game.title}`);
-  }
-
-  onBuy(game: Game) {
-    window.alert(`User 'buy' ${game.title}`);
-  }
-
-
-  // Methode 2
-
-  // onGameAction(game: Game, action: 'follow'|'share'|'buy') {
-  //   window.alert(`User '${action}' ${game.title}`);
-  // }
 }

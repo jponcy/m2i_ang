@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
+import { GameListActions } from '../models';
+
 @Component({
   selector: 'app-game-list-actions',
   templateUrl: './game-list-actions.component.html',
@@ -8,13 +10,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class GameListActionsComponent implements OnInit {
 
   @Output()
-  follow = new EventEmitter<void>();
-
-  @Output()
-  share = new EventEmitter<void>();
-
-  @Output()
-  buy = new EventEmitter<void>();
+  actionClick = new EventEmitter<GameListActions>(); // Renommage pour eviter un warning.
+  // click = new EventEmitter<GameListActions>(); // Si on veut respecter la consigne a la lettre.
 
   constructor() { }
 
@@ -23,16 +20,16 @@ export class GameListActionsComponent implements OnInit {
 
   onFollow(event: MouseEvent) {
     event.stopPropagation();
-    this.follow.emit();
+    this.actionClick.emit(GameListActions.FOLLOW);
   }
 
   onShare(event: MouseEvent) {
     event.stopPropagation();
-    this.share.emit();
+    this.actionClick.emit(GameListActions.SHARE);
   }
 
   onBuy(event: MouseEvent) {
     event.stopPropagation();
-    this.buy.emit();
+    this.actionClick.emit(GameListActions.BUY);
   }
 }

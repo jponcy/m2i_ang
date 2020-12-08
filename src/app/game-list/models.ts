@@ -52,3 +52,7 @@ export const games = [{
   `,
   coverImage: 'https://cdn.cloudflare.steamstatic.com/steam/apps/204360/header.jpg?t=1600880882'
 }];
+
+export enum GameListActions {
+  FOLLOW = 'follow', SHARE = 'share', BUY = 'buy'
+}
