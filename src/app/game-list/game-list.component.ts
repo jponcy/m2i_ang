@@ -1,5 +1,6 @@
-import { Game, games } from './models';
 import { Component } from '@angular/core';
+
+import { Game, games } from './models';
 
 @Component({
   selector: 'app-game-list',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
   ]
 })
 export class GameListComponent {
-  games: Game[] = games;
+  readonly games: Game[] = games;
 
   description(game: Game) {
     let result: string;

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { GameGenre, genres as allGenres } from './models';
 
 @Component({
   selector: 'app-game-list-filter',
@@ -6,11 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class GameListFilterComponent implements OnInit {
+export class GameListFilterComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  /** Genre entities. */
+  readonly genres: GameGenre[] = allGenres.sort((a, b) => a.name.localeCompare(b.name));
 }

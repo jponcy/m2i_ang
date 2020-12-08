@@ -13,9 +13,7 @@
     <label for="game_genre">Category</label>
     <select id="game_genre">
       <option value="">Aucun</option>
-      <option value="1">RPG</option>
-      <option value="2">RTS</option>
-      <option value="3">FPS</option>
+      <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
     </select>
   </div>
 
