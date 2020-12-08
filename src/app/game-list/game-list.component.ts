@@ -23,4 +23,25 @@ export class GameListComponent {
 
     return result;
   }
+
+  // Methode 1
+
+  onFollow(game: Game) {
+    window.alert(`User 'follow' ${game.title}`);
+  }
+
+  onShare(game: Game) {
+    window.alert(`User 'share' ${game.title}`);
+  }
+
+  onBuy(game: Game) {
+    window.alert(`User 'buy' ${game.title}`);
+  }
+
+
+  // Methode 2
+
+  // onGameAction(game: Game, action: 'follow'|'share'|'buy') {
+  //   window.alert(`User '${action}' ${game.title}`);
+  // }
 }

@@ -1,6 +1,6 @@
 <app-game-list-filter></app-game-list-filter>
 
-<section class="cards" onclick="abort()">
+<section class="cards">
   <article class="card" *ngFor="let game of games">
     <header>
       <div>
@@ -25,9 +25,15 @@
     </main>
 
     <footer>
-      <button>follow</button>
-      <button>share</button>
-      <button>buy</button>
+      <!-- Methode 1 -->
+      <button (click)="onFollow(game)">follow</button>
+      <button (click)="onShare(game)">share</button>
+      <button (click)="onBuy(game)">buy</button>
+
+      <!-- Methode 2 -->
+      <!-- <button (click)="onGameAction(game, 'follow')">follow</button>
+      <button (click)="onGameAction(game, 'share')">share</button>
+      <button (click)="onGameAction(game, 'buy')">buy</button> -->
     </footer>
   </article>
 
