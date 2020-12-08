@@ -1,3 +1,35 @@
+<ng-container *ngIf="todos; else loading">
+  <h2>Tâches à réaliser</h2>
+
+  <table>
+    <!-- <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Fini ?</th>
+        <th></th>
+      </tr>
+    </thead> -->
+
+    <tbody>
+      <tr *ngFor="let e of todos" (click)="onClick(e)" [ngClass]="{finished: e.finished}">
+        <td><input type="checkbox" [checked]="e.finished"></td>
+        <td>{{ e.name }}</td>
+        <!-- <td>{{ e.finished ? 'Fini' : 'Pas fini' }}</td>
+        <td></td> -->
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #loading>
+  <p class="text text-warning">
+    Chargement en cours...
+  </p>
+</ng-template>
+
+
+
+
 <p *ngIf="age < 5">              Inférieur à 5 ans.</p>
 <p *ngIf="age >= 5 && age <= 10">Entre 5 et 10 ans.</p>
 <p *ngIf="age > 10">             Supérieur à 10 ans.</p>
@@ -38,30 +70,3 @@
 <p>
   {{ ageComment }}
 </p>
-
-<table *ngIf="todos; else loading">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Fini ?</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <!-- <tr
-        *ngFor="let e of todos; even as even"
-        [ngStyle]="{backgroundColor: even ? 'silver' : 'inherit'}"> -->
-    <tr *ngFor="let e of todos">
-      <td>{{ e.name }}</td>
-      <td>{{ e.finished ? 'Fini' : 'Pas fini' }}</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-
-<ng-template #loading>
-  <p class="text text-warning">
-    Chargement en cours...
-  </p>
-</ng-template>

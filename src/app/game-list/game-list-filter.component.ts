@@ -12,4 +12,11 @@ export class GameListFilterComponent {
 
   /** Genre entities. */
   readonly genres: GameGenre[] = allGenres.sort((a, b) => a.name.localeCompare(b.name));
+
+  onChangeName(event: any) {
+    console.log('Change name', {
+      event,
+      value: event.target.value
+    });
+  }
 }

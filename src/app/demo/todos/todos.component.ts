@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -29,6 +29,10 @@ export class TodosComponent implements OnInit {
   todos: Todo[];
 
   constructor() { }
+
+  onClick(todo: Todo): void {
+    todo.finished = !todo.finished;
+  }
 
   ngOnInit(): void {
     of(null).pipe(delay(1_000)).subscribe(() => this.todos = todos);
