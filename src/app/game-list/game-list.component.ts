@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Game, games } from './models';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-game-list',
@@ -6,25 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent {
+  games: Game[] = games;
 
-  title = 'mon site';
+  description(game: Game) {
+    let result: string;
+    const words = game.description.split(/\s+/);
 
-  imgUrl = 'https://cdn.cloudflare.steamstatic.com/steam/apps/238460/header.jpg?t=1599169670';
+    if (words.length > 20) {
+      result = words.slice(0, 21).join(' ') + '...';
+    } else {
+      result = game.description;
+    }
 
-  img = {
-    url: 'https://cdn.cloudflare.steamstatic.com/steam/apps/238460/header.jpg?t=1599169670',
-    name: 'Cover image'
-  };
-
-  valeur: string;
-
-  readonly Array = Array;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    // Valeur falsy => null, undefined, 0, '', false
+    return result;
   }
-
 }

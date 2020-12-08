@@ -1,35 +1,26 @@
 <app-game-list-filter></app-game-list-filter>
 
-<p>
-  Bienvenue sur {{ title }}, 3 x 3 = {{ 3 * 3 }} !!!
-</p>
-
-<img [src]="img.url" [alt]="img.name" *ngIf="img && img.url">
-<img [src]="img.url" [alt]="img.name" *ngIf="img?.url">
-
 <section class="cards">
-  <article class="card" *ngFor="let i of Array.from({length: 10})">
+  <article class="card" *ngFor="let game of games">
     <header>
       <div>
-        <h1>BattleBlock Theater</h1>
+        <h1>{{ game.title }}</h1>
         <p>
-          Jeu de platform multijoueur
+          {{ game.genre }}
         </p>
       </div>
       <!-- <div class="spacer"></div> -->
       <p>
-        9.8/10
+        {{ game.note }}/10
       </p>
     </header>
 
     <main>
       <img
-        src="https://cdn.cloudflare.steamstatic.com/steam/apps/238460/header.jpg?t=1599169670"
-        alt="Cover image of BattleBlock Theater">
+        [src]="game.coverImage"
+        [alt]="'Cover image of' + game.title">
       <p>
-        Shipwrecked. Captured. Betrayed. Forced to perform for an audience of cats? Yes, all that and more when you unlock BattleBlock Theater! There’s no turning back once you've started on your quest to free over 300 of your imprisoned friends from evil technological cats. Immerse yourself in this mind bending tale of treachery as you use your arsenal of weapon-tools to battle your way through hundreds of levels in order to discover the puzzling truth behind BattleBlock Theater.
-
-        If solo acts aren't your style, go online or bring a buddy couch-side to play a thoroughly co-optimized quest or enter the arenas. The game also includes a level editor so you can craft your own mind bending trials!
+        {{ description(game) }}
       </p>
     </main>
 

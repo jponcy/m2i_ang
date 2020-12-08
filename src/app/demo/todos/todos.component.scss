@@ -1,0 +1,11 @@
+tbody>tr {
+  &:nth-child(2n+1) {
+    background-color: black;
+    color: lime;
+  }
+
+  &:nth-child(2n) {
+    background-color: red;
+    color: pink;
+  }
+}

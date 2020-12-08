@@ -13,6 +13,10 @@ const todos = [
   { name: 'Comprendre les arrow function et leur application', finished: false },
 ];
 
+Array
+    .from({length: 50})
+    .forEach((_, i) => todos.push({ name: 'Tâche n°' + (i + 1), finished: i < 10}));
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -20,39 +24,39 @@ const todos = [
 })
 export class TodosComponent implements OnInit {
 
+  age = 13;
+
   todos: Todo[];
 
   constructor() { }
 
   ngOnInit(): void {
-    // const fn = function (param1) {
-    //   this.todos = todos;
-    // };
-    // fn.bind(this);
-    // setTimeout(fn, 2_000);
-
-    // Syntaxe arrow function
-    // complete : (param1, param2, ..., paramX) => { /* content */}
-    // si un seul param : param1 => { /* content */}
-    // si une seule ligne (attention, provoque un return implicite) : (param1, param2, ..., paramX) => /* content */
-    // syntaxe minimun : () => 3
-
-
-    // setTimeout(() => this.todos = todos, 1_000); => setTimeout deprécié
     of(null).pipe(delay(1_000)).subscribe(() => this.todos = todos);
 
-    // const fn = (nb: number) => [...Array(nb)]
-    //   .map((_, i) => i + 1)
-    //   .reduce((acc, elt) => acc * elt, 1);
+    switch (this.age) {
+      case 1:
+        // If 1
+        break;
+      case 2:
+        // If 2
+        break;
+      default:
+        // Else.
+        break;
+    }
+  }
 
-    // var _fn = function (nb) {
-    //   return Array.from({length: nb})
-    //     .map(function (_, i) { return i; })
-    //     .reduce(function (acc, elt) { return acc * elt; }, 1);
-    // }
+  get ageComment() {
+    let result: string;
 
-    // const tab = [1, 2, 3];
+    if (this.age < 5) {
+      result = 'Inférieur à 5 ans.';
+    } else if (this.age <= 10) {
+      result = 'Entre 5 et 10 ans.';
+    } else {
+      result = 'Supérieur à 10 ans.';
+    }
 
-    // const square = tab.map(value => value ** 2);
+    return result;
   }
 }

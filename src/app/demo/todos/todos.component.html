@@ -1,3 +1,44 @@
+<p *ngIf="age < 5">              Inférieur à 5 ans.</p>
+<p *ngIf="age >= 5 && age <= 10">Entre 5 et 10 ans.</p>
+<p *ngIf="age > 10">             Supérieur à 10 ans.</p>
+
+
+<div [ngSwitch]="age">
+  <p *ngSwitchCase="1">
+    <!-- If 1   -->
+  </p>
+
+  <p *ngSwitchCase="2">
+    <!-- If 2 -->
+  </p>
+
+  <p *ngSwitchDefault>
+    <!-- Else. -->
+  </p>
+</div>
+
+<!-- Cas ou le switch n'etait pas la solution la plus simple. -->
+<div [ngSwitch]="age">
+  <p *ngSwitchCase="0">Inférieur à 5 ans.</p>
+  <p *ngSwitchCase="1">Inférieur à 5 ans.</p>
+  <p *ngSwitchCase="2">Inférieur à 5 ans.</p>
+  <p *ngSwitchCase="3">Inférieur à 5 ans.</p>
+  <p *ngSwitchCase="4">Inférieur à 5 ans.</p>
+
+  <p *ngSwitchCase="5">Entre 5 et 10 ans.</p>
+  <p *ngSwitchCase="6">Entre 5 et 10 ans.</p>
+  <p *ngSwitchCase="7">Entre 5 et 10 ans.</p>
+  <p *ngSwitchCase="8">Entre 5 et 10 ans.</p>
+  <p *ngSwitchCase="9">Entre 5 et 10 ans.</p>
+  <p *ngSwitchCase="10">Entre 5 et 10 ans.</p>
+
+  <p *ngSwitchDefault>Supérieur à 10 ans.</p>
+</div>
+
+<p>
+  {{ ageComment }}
+</p>
+
 <table *ngIf="todos; else loading">
   <thead>
     <tr>
@@ -8,6 +49,9 @@
   </thead>
 
   <tbody>
+    <!-- <tr
+        *ngFor="let e of todos; even as even"
+        [ngStyle]="{backgroundColor: even ? 'silver' : 'inherit'}"> -->
     <tr *ngFor="let e of todos">
       <td>{{ e.name }}</td>
       <td>{{ e.finished ? 'Fini' : 'Pas fini' }}</td>
