@@ -20,3 +20,15 @@ export class GameListFilterComponent {
     });
   }
 }
+
+
+
+
+// Composant enfant (sub.component)
+function toto(nom: string) {
+  const msg = 'Salut';
+  console.log(msg + ' ' + nom);
+}
+
+// Composant input-output
+toto('Ben');

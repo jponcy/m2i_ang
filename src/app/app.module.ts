@@ -6,6 +6,8 @@ import { MonComposantComponent } from './demo/mon-composant/mon-composant.compon
 import { GameListComponent } from './game-list/game-list.component';
 import { GameListFilterComponent } from './game-list/game-list-filter.component';
 import { TodosComponent } from './demo/todos/todos.component';
+import { InputOutputComponent } from './demo/input-output/input-output.component';
+import { SubComponent } from './demo/input-output/sub.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { TodosComponent } from './demo/todos/todos.component';
     MonComposantComponent,
     GameListComponent,
     GameListFilterComponent,
-    TodosComponent
+    TodosComponent,
+    InputOutputComponent,
+    SubComponent
   ],
   imports: [
     BrowserModule
