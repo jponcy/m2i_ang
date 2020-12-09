@@ -1,4 +1,4 @@
-<app-game-list-filter></app-game-list-filter>
+<app-game-list-filter (filter)="onGameFilter($event)"></app-game-list-filter>
 
 <div class="actions">
   <button (click)="onDownSize()">-</button>
@@ -7,7 +7,7 @@
 </div>
 
 <section class="cards">
-  <article class="card" *ngFor="let game of games" [ngStyle]="cardStyle">
+  <article class="card" *ngFor="let game of filteredGames" [ngStyle]="cardStyle">
     <header>
       <div>
         <h1>{{ game.title }}</h1>

@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 
-import { Game, GameListActions, games } from './models';
+import { Game, GameListActions, GameListFilter, games } from './models';
 
 // On pourrait aussi utiliser un type complexe definissant qu'on a une clef en chaine de caractere {[key: string]: any}
 interface Style {
@@ -14,7 +14,9 @@ interface Style {
   ]
 })
 export class GameListComponent {
-  readonly games: Game[] = games;
+  private readonly games: Game[] = games;
+
+  filteredGames: Game[] = this.games;
 
   /**
    * Style to apply on all game cards.
@@ -45,6 +47,20 @@ export class GameListComponent {
 
   onUpSize() {
     this.updateStyle(+10);
+  }
+
+  onGameFilter(filter: GameListFilter) {
+    const filterResults = [];
+
+    for (const game of this.games) {
+      if (game.title.toLocaleLowerCase().includes(filter.name)
+          && (!filter.genre || game.genre.id === filter.genre)
+          && game.editor.toLocaleLowerCase().includes(filter.editor)) {
+        filterResults.push(game);
+      }
+    }
+
+    this.filteredGames = filterResults;
   }
 
   description(game: Game) {

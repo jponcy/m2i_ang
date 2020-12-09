@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { GameGenre, genres as allGenres } from '../models';
+import { GameListFilter } from './../models';
 
 @Component({
   selector: 'app-game-list-filter',
@@ -10,19 +11,38 @@ import { GameGenre, genres as allGenres } from '../models';
 })
 export class GameListFilterComponent {
 
+  private filterData: GameListFilter = { name: '', genre: null, editor: '' };
+
+  @Output()
+  filter = new EventEmitter<GameListFilter>();
+
   /** Genre entities. */
   readonly genres: GameGenre[] = allGenres.sort((a, b) => a.name.localeCompare(b.name));
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    console.log('Try to submit');
+    this.filter.emit({
+      name: this.filterData.name.trim().toLowerCase(),
+      editor: this.filterData.editor.trim().toLowerCase(),
+      genre: this.filterData.genre
+    });
   }
 
-  onChangeName(event: any) {
-    console.log('Change name', {
-      event,
-      value: event.target.value
-    });
+  onChangeName(name: string) {
+    this.filterData.name = name;
+  }
+
+  onChangeGenre(genreId: number) {
+    this.filterData.genre = genreId;
+  }
+
+  onChangeEditor(editor: string) {
+    this.filterData.editor = editor;
+  }
+
+  onReset() {
+    this.filterData = { name: '', genre: null, editor: '' };
+    this.filter.emit(this.filterData);
   }
 }

@@ -1,7 +1,7 @@
 <form (submit)="onSubmit($event)">
   <div>
     <label for="game_name">Name</label>
-    <input type="text" id="game_name" (change)="onChangeName($event)">
+    <input type="text" id="game_name" (change)="onChangeName($event.target.value)">
   </div>
 
   <!-- <label>
@@ -11,7 +11,7 @@
 
   <div>
     <label for="game_genre">Category</label>
-    <select id="game_genre">
+    <select id="game_genre" (change)="onChangeGenre(+$event.target.value)">
       <option value="">Aucun</option>
       <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
     </select>
@@ -19,11 +19,11 @@
 
   <div>
     <label for="game_editor">Editor</label>
-    <input type="text" id="game_editor">
+    <input type="text" id="game_editor" (change)="onChangeEditor($event.target.value)">
   </div>
 
   <div class="actions">
     <button type="submit">Filtrer</button>
-    <button type="reset">RAZ</button>
+    <button type="reset" (click)="onReset()">RAZ</button>
   </div>
 </form>
