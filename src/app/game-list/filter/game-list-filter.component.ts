@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { GameGenre, genres as allGenres } from '../models';
+import { GameApiService } from '../game-api.service';
+import { GameGenre } from '../models';
 import { GameListFilter } from './../models';
 
 @Component({
@@ -9,7 +12,7 @@ import { GameListFilter } from './../models';
   styles: [
   ]
 })
-export class GameListFilterComponent {
+export class GameListFilterComponent implements OnInit, OnDestroy {
 
   private filterData: GameListFilter = { name: '', genre: null, editor: '' };
 
@@ -17,7 +20,44 @@ export class GameListFilterComponent {
   filter = new EventEmitter<GameListFilter>();
 
   /** Genre entities. */
-  readonly genres: GameGenre[] = allGenres.sort((a, b) => a.name.localeCompare(b.name));
+  genres: GameGenre[];
+
+  private subscription: Subscription;
+
+  /** Used to free observables. */
+  protected subscriptionHandler$ = new Subject();
+
+  constructor(private readonly api: GameApiService) {}
+
+  ngOnInit() {
+    // Exemple simple (avec fuite memoire potentielle).
+    // this.api
+    //     .getAllGenres()
+    //     .subscribe(genres => this.genres = genres);
+
+    // Exemple avec liberation de la memoire par subscription (C.f. aussi l'attribut + le code dans ngOnDesroy).
+    // this.subscription = this.api
+    //     .getAllGenres()
+    //     .subscribe(genres => this.genres = genres);
+
+    // Exemple moderne de liberation en utilisant rxjs (conseille notemment s'il y a plusieurs flux a terminer).
+    this.api
+        .getAllGenres()
+        .pipe(takeUntil(this.subscriptionHandler$)) // Le message est emis dans la methode ngOnDestroy.
+        .subscribe(genres => this.genres = genres);
+  }
+
+  ngOnDestroy() {
+    // Liberation de la memoire par subscription.
+    if (this.subscription/* && !this.subscription.closed*/) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
+
+    // Liberation de la memoire en utilisant rxjs
+    this.subscriptionHandler$.next();
+    this.subscriptionHandler$.complete();
+  }
 
   onSubmit(event: Event) {
     event.preventDefault();

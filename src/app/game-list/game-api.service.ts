@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { GameGenre } from './models';
 
 /**
  * This service use https://github.com/jponcy/fake-game-api API.
@@ -17,4 +19,12 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class GameApiService {
   constructor(private readonly http: HttpClient) {}
+
+  getAllGenres() {
+    const params = new HttpParams()
+        .append('_sort', 'name');
+        // .append('_order', 'asc') // Default in API.
+
+    return this.http.get<GameGenre[]>('http://localhost:3000/genres', { params });
+  }
 }
