@@ -1,0 +1,5 @@
+<p *ngIf="valeur; else chargementAvecSubscribe">
+  Valeur : {{ valeur }}
+</p>
+
+<ng-template #chargementAvecSubscribe><p>Chargement avec le subscribe</p></ng-template>

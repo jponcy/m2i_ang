@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { Game, GameListActions, GameListFilter, games } from './models';
 
@@ -17,6 +18,8 @@ export class GameListComponent {
   private readonly games: Game[] = games;
 
   filteredGames: Game[] = this.games;
+
+  subject = new Subject<number>();
 
   /**
    * Style to apply on all game cards.

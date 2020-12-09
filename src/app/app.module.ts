@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MonComposantComponent } from './demo/mon-composant/mon-composant.component';
@@ -9,6 +10,8 @@ import { TodosComponent } from './demo/todos/todos.component';
 import { InputOutputComponent } from './demo/input-output/input-output.component';
 import { SubComponent } from './demo/input-output/sub.component';
 import { GameListActionsComponent } from './game-list/actions/game-list-actions.component';
+import { SubjectComponent } from './demo/observables/subject.component';
+import { DrawValueComponent } from './demo/observables/draw-value.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +22,13 @@ import { GameListActionsComponent } from './game-list/actions/game-list-actions.
     TodosComponent,
     InputOutputComponent,
     SubComponent,
-    GameListActionsComponent
+    GameListActionsComponent,
+    SubjectComponent,
+    DrawValueComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
