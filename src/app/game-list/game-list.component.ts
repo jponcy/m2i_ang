@@ -1,7 +1,10 @@
-import { Component, HostListener } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { GameApiService } from './game-api.service';
 
-import { Game, GameListActions, GameListFilter, games } from './models';
+import { Game, GameListActions, GameListFilter } from './models';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 // On pourrait aussi utiliser un type complexe definissant qu'on a une clef en chaine de caractere {[key: string]: any}
 interface Style {
@@ -14,10 +17,10 @@ interface Style {
   styles: [
   ]
 })
-export class GameListComponent {
-  private readonly games: Game[] = games;
+export class GameListComponent implements OnInit, OnDestroy {
+  private games: Game[];
 
-  filteredGames: Game[] = this.games;
+  filteredGames: Game[];
 
   subject = new Subject<number>();
 
@@ -31,7 +34,25 @@ export class GameListComponent {
 
   private width: number;
 
-  constructor() {}
+  /** Used to free observables. */
+  protected subscriptionHandler$ = new Subject();
+
+  constructor(private readonly api: GameApiService) {}
+
+  ngOnInit(): void {
+    this.api
+        .getAll()
+        .pipe(takeUntil(this.subscriptionHandler$))
+        .subscribe(games => {
+          this.games = games;
+          this.filteredGames = games;
+        });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionHandler$.next();
+    this.subscriptionHandler$.complete();
+  }
 
   /**
    * Resets the card with when user clicks on reset button or when user resizes the screen.
@@ -57,8 +78,8 @@ export class GameListComponent {
 
     for (const game of this.games) {
       if (game.title.toLocaleLowerCase().includes(filter.name)
-          && (!filter.genre || game.genre.id === filter.genre)
-          && game.editor.toLocaleLowerCase().includes(filter.editor)) {
+          && (!filter.genre || game.genres.find(g => g.id === filter.genre))
+          && game.editor.name.toLocaleLowerCase().includes(filter.editor)) {
         filterResults.push(game);
       }
     }
@@ -77,6 +98,10 @@ export class GameListComponent {
     }
 
     return result;
+  }
+
+  drawGenres(game: Game) {
+    return game.genres.map(genre => genre.name).join(', ');
   }
 
   onActionClick(action: GameListActions, game: Game) {
