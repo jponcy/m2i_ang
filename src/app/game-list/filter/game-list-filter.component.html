@@ -1,4 +1,4 @@
-<form>
+<form (submit)="onSubmit($event)">
   <div>
     <label for="game_name">Name</label>
     <input type="text" id="game_name" (change)="onChangeName($event)">

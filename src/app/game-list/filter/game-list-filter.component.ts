@@ -13,6 +13,12 @@ export class GameListFilterComponent {
   /** Genre entities. */
   readonly genres: GameGenre[] = allGenres.sort((a, b) => a.name.localeCompare(b.name));
 
+  onSubmit(event: Event) {
+    event.preventDefault();
+
+    console.log('Try to submit');
+  }
+
   onChangeName(event: any) {
     console.log('Change name', {
       event,
@@ -20,15 +26,3 @@ export class GameListFilterComponent {
     });
   }
 }
-
-
-
-
-// Composant enfant (sub.component)
-function toto(nom: string) {
-  const msg = 'Salut';
-  console.log(msg + ' ' + nom);
-}
-
-// Composant input-output
-toto('Ben');
