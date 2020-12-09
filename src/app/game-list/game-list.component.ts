@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 import { Game, GameListActions, games } from './models';
 
@@ -13,7 +13,7 @@ interface Style {
   styles: [
   ]
 })
-export class GameListComponent /* implements AfterViewInit */ {
+export class GameListComponent {
   readonly games: Game[] = games;
 
   /**
@@ -28,22 +28,16 @@ export class GameListComponent /* implements AfterViewInit */ {
 
   constructor() {}
 
+  /**
+   * Resets the card with when user clicks on reset button or when user resizes the screen.
+   */
   @HostListener('window:resize')
-  onResize() {
+  onResetSize() {
     if (this.width) {
       this.width = null;
       this.cardStyle.width = null;
     }
   }
-
-  // ngAfterViewInit(): void {
-  //   const firstCard: HTMLElement = document.querySelector('app-game-list .card');
-  //   const owidth = firstCard.offsetWidth;
-
-  //   console.log('Width = ' + owidth);
-
-  //   // this.updateStyle();
-  // }
 
   onDownSize() {
     this.updateStyle(-10);
