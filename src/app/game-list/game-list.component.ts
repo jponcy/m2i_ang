@@ -21,8 +21,6 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   filteredGames: Game[];
 
-  subject = new Subject<number>();
-
   /**
    * Style to apply on all game cards.
    *
