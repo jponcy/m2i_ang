@@ -6,7 +6,9 @@
   <button (click)="onResetSize()">=</button>
 </div>
 
-<section class="cards">
+<ng-template #loading><p>Chargement...</p></ng-template>
+
+<section class="cards" *ngIf="filteredGames; else loading">
   <article class="card" *ngFor="let game of filteredGames" [ngStyle]="cardStyle">
     <header>
       <div>

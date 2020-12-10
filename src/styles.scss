@@ -89,6 +89,11 @@ $card-padding: 15px;
         color: black;
       }
       &:not(:last-of-type) { margin-right: 5px; }
+
+      &.danger {
+        background-color: red;
+        color: white;
+      }
     }
   }
 }

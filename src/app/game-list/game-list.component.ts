@@ -1,10 +1,9 @@
-import { takeUntil } from 'rxjs/operators';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { GameApiService } from './game-api.service';
+import { takeUntil } from 'rxjs/operators';
 
+import { GameApiService } from './game-api.service';
 import { Game, GameListActions, GameListFilter } from './models';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 // On pourrait aussi utiliser un type complexe definissant qu'on a une clef en chaine de caractere {[key: string]: any}
 interface Style {
@@ -105,7 +104,20 @@ export class GameListComponent implements OnInit, OnDestroy {
   }
 
   onActionClick(action: GameListActions, game: Game) {
-    window.alert(`User '${action}' ${game.title}`);
+    switch (action) {
+      case GameListActions.DELETE:
+        this.api
+            .delete(game)
+            .pipe(takeUntil(this.subscriptionHandler$))
+            .subscribe(() => {
+              this.games.splice(this.games.indexOf(game), 1);
+              this.filteredGames.splice(this.filteredGames.indexOf(game), 1);
+            });
+        break;
+      default:
+        window.alert(`User '${action}' ${game.title}`);
+        break;
+    }
   }
 
   /**

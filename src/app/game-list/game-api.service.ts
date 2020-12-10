@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 
 import { Game, GameDto, GameEditor, GameGenre } from './models';
 
@@ -22,44 +22,32 @@ import { Game, GameDto, GameEditor, GameGenre } from './models';
 export class GameApiService {
   constructor(private readonly http: HttpClient) {}
 
-  getAll() {
-    // Requete de base (ne permet, seule, de recuperer les donnes annexes (genres, publishers)).
-    // return this.http.get<Game[]>('http://localhost:3000/games');
+  getAll(page: number = null, limit: number = null) {
+    let params = new HttpParams();
 
-    /*
-     * Utilisation de flat map (peut etre pratique dans certain cas mais n'est pas adapte a notre cas actuel
-     * (car nous n'avons pas besoin d'attendre la fin de la premiere requete pour lancer la suivante)).
-     */
-    // this.http
-    //     .get<GameDto[]>('http://localhost:3000/games')
-    //     .pipe(
-    //       flatMap(games => {
-    //         return this.getAllGenres()
-    //             .pipe(
-    //               map(genres => ({ }))
-    //          ,   );
-    //       }),
-    //       flatMap(gameWithGenres => /* ... */)
-    //     )
+    if (page) {
+      params = params.append('_page', `${page}`);
+    }
 
+    if (limit) {
+      params = params.append('_limit', `${limit}`);
+    }
 
     // Utilisation d'un formJoin
     return forkJoin([
-      this.http.get<GameDto[]>('http://localhost:3000/games'),
+      this.http.get<GameDto[]>('http://localhost:3000/games', { params }),
       this.getAllGenres(),
       this.getEditors()
     ])
       .pipe(
-        // Le retour est un tableau, on pourrait recuperer les differente valeurs comme ceci.
-        // map((result) => {
-        //   const games = result[0];
-        //   const genres = result[1];
-        //   const editors = result[2];
-        // }
-        // Mais on va utiliser la destructuration.
-        // map(this.convertGames)
+        delay(1_000),
         map(this.convertGamesDestructAndFilter)
       );
+  }
+
+  /** Deletes the given game. */
+  delete(game: Game) {
+    return this.http.delete<void>('http://localhost:3000/games/' + game.id);
   }
 
   getAllGenres() {

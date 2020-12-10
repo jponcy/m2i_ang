@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { GameListActions } from '../models';
 
@@ -7,16 +7,10 @@ import { GameListActions } from '../models';
   templateUrl: './game-list-actions.component.html',
   styleUrls: ['./game-list-actions.component.scss']
 })
-export class GameListActionsComponent implements OnInit {
+export class GameListActionsComponent {
 
   @Output()
   actionClick = new EventEmitter<GameListActions>(); // Renommage pour eviter un warning.
-  // click = new EventEmitter<GameListActions>(); // Si on veut respecter la consigne a la lettre.
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onFollow(event: MouseEvent) {
     event.stopPropagation();
@@ -31,5 +25,13 @@ export class GameListActionsComponent implements OnInit {
   onBuy(event: MouseEvent) {
     event.stopPropagation();
     this.actionClick.emit(GameListActions.BUY);
+  }
+
+  onDelete(event: MouseEvent) {
+    event.stopPropagation();
+
+    if (window.confirm('Are your sure?')) {
+      this.actionClick.emit(GameListActions.DELETE);
+    }
   }
 }
