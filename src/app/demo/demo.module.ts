@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { InputOutputComponent } from './input-output/input-output.component';
@@ -18,6 +19,9 @@ import { TodosComponent } from './todos/todos.component';
   ],
   exports: [
     TodosComponent
+  ],
+  imports: [
+    CommonModule
   ]
 })
 export class DemoModule {}
