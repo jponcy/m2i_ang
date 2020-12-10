@@ -1,0 +1,35 @@
+<!-- <nav>
+  <ul>
+    <li><a (click)="route('games')">Liste des jeux</a></li>
+    <li><a (click)="route('todos')">Liste des tâches</a></li>
+  </ul>
+</nav>
+
+<app-game-list *ngIf="!page || page === 'games'"></app-game-list>
+<app-todos *ngIf="page === 'todos'"></app-todos> -->
+
+<header>
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="games">Liste des jeux</a>
+      </li>
+      <li>
+        <a routerLink="todos">Liste des tâches</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<!--
+  x TODO: Definition des routes dans un module dediee (AppRoutingModule)
+  x TODO: Definir ou sera placee la page.
+  x TODO: Importer ce qu'on a defini dans le AppModule
+  TODO: Ajouter un menu.
+-->

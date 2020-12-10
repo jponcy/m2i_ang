@@ -40,9 +40,13 @@ export class GameApiService {
       this.getEditors()
     ])
       .pipe(
-        delay(1_000),
+        delay(400),
         map(this.convertGamesDestructAndFilter)
       );
+  }
+
+  getOne(id: number) {
+    return this.http.get<any>(`http://localhost:3000/games/${id}`);
   }
 
   /** Deletes the given game. */

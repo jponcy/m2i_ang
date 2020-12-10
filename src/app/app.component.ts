@@ -2,8 +2,15 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: '<app-game-list></app-game-list>',
-  styles: [],
+  templateUrl: './app.component.html',
+  styles: [
+  ],
 })
 export class AppComponent {
+
+  page: string;
+
+  route(routeName: string) {
+    this.page = routeName;
+  }
 }

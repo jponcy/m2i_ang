@@ -1,0 +1,7 @@
+<p>game-details works!</p>
+
+<ng-template #loading>Chargement...</ng-template>
+
+<p *ngIf="game$ | async as game; else loading">
+  {{ game | json }}
+</p>

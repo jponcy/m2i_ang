@@ -29,7 +29,7 @@ export class TodoApiService {
 
     return this.http.get<TodoDto[]>('./assets/todos.json', { params })
         .pipe(
-          delay(1_000),
+          delay(200),
           // Conversion des donnees car l'API n'a pas le meme nom pour le champs name (title a la place).
           map(todos => todos.map(this.convertTodo))
         );
