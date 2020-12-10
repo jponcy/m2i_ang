@@ -1,0 +1,6 @@
+<article>
+  <h1>
+    <ng-container *ngIf="id; else createNew">Edit {{ id }}</ng-container>
+    <ng-template #createNew>New</ng-template>
+  </h1>
+</article>

@@ -9,7 +9,7 @@
 <ng-template #loading><p>Chargement...</p></ng-template>
 
 <section class="cards" *ngIf="filteredGames; else loading">
-  <article class="card" *ngFor="let game of filteredGames" [ngStyle]="cardStyle">
+  <article class="card clickable" *ngFor="let game of filteredGames" [ngStyle]="cardStyle" [routerLink]="[game.id]">
     <header>
       <div>
         <h1>{{ game.title }}</h1>

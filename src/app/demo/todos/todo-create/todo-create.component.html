@@ -1,0 +1,16 @@
+<p>
+  Current value: {{ todo.name || 'empty' }}.
+</p>
+
+<form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+  <div>
+    <label for="todo_name">Nom de la tache</label>
+    <input type="text" name="name" [(ngModel)]="todo.name" #name="ngModel" required>
+
+    <div [hidden]="name.valid || name.pristine">
+      Name is required
+    </div>
+  </div>
+
+  <input type="submit" [disabled]="!todoForm.form.valid">
+</form>

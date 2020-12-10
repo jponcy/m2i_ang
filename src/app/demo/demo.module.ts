@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { InputOutputComponent } from './input-output/input-output.component';
 import { SubComponent } from './input-output/sub.component';
 import { MonComposantComponent } from './mon-composant/mon-composant.component';
 import { DrawValueComponent } from './observables/draw-value.component';
 import { SubjectComponent } from './observables/subject.component';
+import { TodoCreateComponent } from './todos/todo-create/todo-create.component';
 import { TodosComponent } from './todos/todos.component';
 
 @NgModule({
@@ -15,13 +18,18 @@ import { TodosComponent } from './todos/todos.component';
     InputOutputComponent,
     SubComponent,
     SubjectComponent,
-    DrawValueComponent
+    DrawValueComponent,
+    TodoCreateComponent
   ],
   exports: [
-    TodosComponent
+    TodosComponent,
+    TodoCreateComponent,
+    TodoCreateComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    RouterModule
   ]
 })
 export class DemoModule {}

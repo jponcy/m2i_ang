@@ -1,30 +1,39 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TodoCreateComponent } from './demo/todos/todo-create/todo-create.component';
 
 import { TodosComponent } from './demo/todos/todos.component';
 import { GameDetailsComponent } from './game-details/game-details.component';
+import { GameFormComponent } from './game-form/game-form.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  { path: 'todos', component: TodosComponent },
-
-  // { path: 'games/:id/delete', component: GameDeleteComponent },
-  // { path: 'games/:id/follow', component: GameFollowComponent },
-  // { path: 'games/:id', component: GameDetailsComponent },
-  // { path: 'games', component: GameListComponent },
+  {
+    path: 'todos',
+    children: [
+      { path: 'new', component: TodoCreateComponent },
+      { path: '', component: TodosComponent, pathMatch: 'full' }
+    ]
+  },
 
   {
-    path: 'games',
+    path: 'product',
     children: [
-      // { path: ':id/delete', component: GameDeleteComponent },
-      // { path: ':id/follow', component: GameFollowComponent },
-      { path: ':id', component: GameDetailsComponent },
+      { path: 'new', component: GameFormComponent},
+      {
+        path: ':id',
+        children: [
+          { path: 'edit',  component: GameFormComponent},
+          { path: '',      component: GameDetailsComponent, pathMatch: 'full' },
+        ]
+      },
       { path: '', component: GameListComponent },
     ]
   },
-  { path: '',      redirectTo: 'games', pathMatch: 'full' },
-  { path: '**',    component: NotFoundComponent }
+
+  { path: '',   redirectTo: 'product', pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

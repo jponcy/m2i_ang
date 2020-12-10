@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { flatMap, subscribeOn, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+
 import { GameApiService } from '../game-list/game-api.service';
+import { Game } from '../game-list/models';
 
 @Component({
   selector: 'app-game-details',
@@ -11,10 +13,7 @@ import { GameApiService } from '../game-list/game-api.service';
 })
 export class GameDetailsComponent implements OnInit {
 
-  // /** Used to free observables. */
-  // protected subscriptionHandler$ = new Subject();
-
-  game$: Observable<any>;
+  game$: Observable<Game>;
 
   /** Constructor. */
   constructor(
@@ -22,35 +21,13 @@ export class GameDetailsComponent implements OnInit {
       private readonly api: GameApiService) { }
 
   ngOnInit(): void {
-    // const id = this.route.paramMap.get('id');
-
-    // Syntaxe de base pour recuperer un jeux a partir de l'id donne dans l'URL.
-    // this.route.params
-    //     .pipe(takeUntil(this.subscriptionHandler$))
-    //     .subscribe((params: {id: number}) => {
-    //       const id = +params.id;
-
-    //       this.api
-    //           .getOne(id)
-    //           .subscribe(console.log);
-    //     });
-
-    // Syntaxe amelioree en utilisant l'operateur flatMap de rxjs -- c'est le code generallement conseille.
-    // this.route.params
-    //     .pipe(
-    //       takeUntil(this.subscriptionHandler$),
-    //       flatMap((params: {id: number}) => this.api.getOne(+params.id))
-    //     )
-    //     .subscribe(console.log);
-
-    // Syntaxe plus courte.
-    // this.api
-    //     .getOne(+this.route.snapshot.paramMap.get('id'))
-    //     .pipe(takeUntil(this.subscriptionHandler$))
-    //     .subscribe(console.log);
-
-
-    this.game$ = this.api.getOne(+this.route.snapshot.paramMap.get('id'));
+    this.game$ = this.route
+        .params
+        // .pipe(flatMap(params => this.api.getOne(+params.id)))
+        .pipe(flatMap(({id}) => this.api.getOne(+id)));
   }
 
+  drawGenres(game: Game) {
+    return game.genres.map(genre => genre.name).join(', ');
+  }
 }

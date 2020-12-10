@@ -27,6 +27,19 @@ $card-padding: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+
+  .card {
+    @include medium() {
+      width: 49%;
+      &:nth-child(2n+1) { margin-right: 3px; }
+    }
+
+    @include large() {
+      min-width: 400px;
+      width: 20%;
+      margin: 5px;
+    }
+  }
 }
 
 .card {
@@ -41,16 +54,6 @@ $card-padding: 15px;
 
   &:hover { border: 1px solid black; }
 
-  @include medium() {
-    width: 49%;
-    &:nth-child(2n+1) { margin-right: 3px; }
-  }
-
-  @include large() {
-    min-width: 400px;
-    width: 20%;
-    margin: 5px;
-  }
 
   img {
     width: 100%;
@@ -77,7 +80,7 @@ $card-padding: 15px;
     margin-bottom: $card-padding;
 
     button {
-      cursor: pointer;
+      @extend .clickable;
       color: gray;
       border: none;
       background-color: inherit;
@@ -99,3 +102,5 @@ $card-padding: 15px;
 }
 
 .error { color: red; }
+
+.clickable { cursor: pointer; }

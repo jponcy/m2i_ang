@@ -1,7 +1,26 @@
-<p>game-details works!</p>
-
 <ng-template #loading>Chargement...</ng-template>
 
-<p *ngIf="game$ | async as game; else loading">
-  {{ game | json }}
-</p>
+<article class="card clickable" *ngIf="game$ | async as game; else loading">
+  <header>
+    <div>
+      <h1>{{ game.title }}</h1>
+      <p>
+        {{ drawGenres(game) }}
+      </p>
+    </div>
+    <p *ngIf="game.note">
+      {{ game.note }}/10
+    </p>
+  </header>
+
+  <main>
+    <img
+      [src]="game.coverImage"
+      [alt]="'Cover image of' + game.title">
+    <p>
+      Editor: {{ game.editor.name }}.
+    </p>
+    <p [innerHTML]="game.description">
+    </p>
+  </main>
+</article>

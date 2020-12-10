@@ -1,9 +1,14 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { forkJoin, of, Observable } from 'rxjs';
+import { delay, flatMap, map } from 'rxjs/operators';
 
 import { Game, GameDto, GameEditor, GameGenre } from './models';
+
+const URL_GAME   = `${environment.apiUrl}/games`;
+const URL_GENRE  = `${environment.apiUrl}/genres`;
+const URL_EDITOR = `${environment.apiUrl}/publishers`;
 
 /**
  * This service use https://github.com/jponcy/fake-game-api API.
@@ -35,7 +40,7 @@ export class GameApiService {
 
     // Utilisation d'un formJoin
     return forkJoin([
-      this.http.get<GameDto[]>('http://localhost:3000/games', { params }),
+      this.http.get<GameDto[]>(URL_GAME, { params }),
       this.getAllGenres(),
       this.getEditors()
     ])
@@ -46,24 +51,45 @@ export class GameApiService {
   }
 
   getOne(id: number) {
-    return this.http.get<any>(`http://localhost:3000/games/${id}`);
+    return this.http.get<GameDto>(`${URL_GAME}/${id}`)
+        .pipe(
+          flatMap(game => forkJoin([
+            of(game),
+            // Il serait preferable d'avoir un systeme de cache (qu'il soit manuel ou avec une librairie)
+            // OU avoir une API no RestFULL plus facile a utiliser.
+            this.getAllGenres(game.genres),
+            this.getOneEditor(game.publisher)
+          ])),
+          map(([game, genres, editor]) => ({ ...game, genres, editor }))
+        ) as Observable<Game>;
   }
 
   /** Deletes the given game. */
   delete(game: Game) {
-    return this.http.delete<void>('http://localhost:3000/games/' + game.id);
+    return this.http.delete<void>(`${URL_GAME}/${game.id}`);
   }
 
-  getAllGenres() {
-    const params = new HttpParams()
+  // @Cacheable()
+  getAllGenres(ids: number[] = null) {
+    let params = new HttpParams()
         .append('_sort', 'name');
         // .append('_order', 'asc') // Default in API.
 
-    return this.http.get<GameGenre[]>('http://localhost:3000/genres', { params });
+    if (ids) {
+      for (const id of ids) {
+        params = params.append('id', `${id}`);
+      }
+    }
+
+    return this.http.get<GameGenre[]>(URL_GENRE, { params });
+  }
+
+  private getOneEditor(id: number) {
+    return this.http.get<GameEditor>(`${URL_EDITOR}/${id}`);
   }
 
   private getEditors() {
-    return this.http.get<GameEditor[]>('http://localhost:3000/publishers');
+    return this.http.get<GameEditor[]>(URL_EDITOR);
   }
 
   /** Implementation de la conversion avec des boucles traditionelles. */
