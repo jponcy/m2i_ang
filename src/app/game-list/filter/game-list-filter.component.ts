@@ -14,7 +14,7 @@ import { GameListFilter } from './../models';
 })
 export class GameListFilterComponent implements OnInit, OnDestroy {
 
-  private filterData: GameListFilter = { name: '', genre: null, editor: '' };
+  filterData: GameListFilter = { name: '', genre: null, editor: '' };
 
   @Output()
   filter = new EventEmitter<GameListFilter>();
@@ -59,26 +59,14 @@ export class GameListFilterComponent implements OnInit, OnDestroy {
     this.subscriptionHandler$.complete();
   }
 
-  onSubmit(event: Event) {
-    event.preventDefault();
-
+  onSubmit() {
     this.filter.emit({
-      name: this.filterData.name.trim().toLowerCase(),
-      editor: this.filterData.editor.trim().toLowerCase(),
+      // name: (this.filterData.name || '').trim().toLowerCase(),
+      name: this.filterData.name ? this.filterData.name.trim().toLowerCase() : null,
+      // name: this.filterData.name.trim().toLowerCase(),
+      editor: this.filterData.editor ? this.filterData.editor.trim().toLowerCase() : null,
       genre: this.filterData.genre
     });
-  }
-
-  onChangeName(name: string) {
-    this.filterData.name = name;
-  }
-
-  onChangeGenre(genreId: number) {
-    this.filterData.genre = genreId;
-  }
-
-  onChangeEditor(editor: string) {
-    this.filterData.editor = editor;
   }
 
   onReset() {

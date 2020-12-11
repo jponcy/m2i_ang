@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { GameListFilterComponent } from './game-list-filter.component';
 
@@ -8,7 +9,8 @@ import { GameListFilterComponent } from './game-list-filter.component';
     GameListFilterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     GameListFilterComponent

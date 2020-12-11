@@ -74,9 +74,9 @@ export class GameListComponent implements OnInit, OnDestroy {
     const filterResults = [];
 
     for (const game of this.games) {
-      if (game.title.toLocaleLowerCase().includes(filter.name)
+      if ((!filter.name || game.title.toLocaleLowerCase().includes(filter.name))
           && (!filter.genre || game.genres.find(g => g.id === filter.genre))
-          && game.editor.name.toLocaleLowerCase().includes(filter.editor)) {
+          && (!filter.editor || game.editor.name.toLocaleLowerCase().includes(filter.editor))) {
         filterResults.push(game);
       }
     }

@@ -1,17 +1,12 @@
-<form (submit)="onSubmit($event)">
+<form (ngSubmit)="onSubmit()">
   <div>
     <label for="game_name">Name</label>
-    <input type="text" id="game_name" (change)="onChangeName($event.target.value)">
+    <input type="text" id="game_name" name="game_name" [(ngModel)]="filterData.name">
   </div>
-
-  <!-- <label>
-    Name
-    <input type="text">
-  </label> -->
 
   <div>
     <label for="game_genre">Category</label>
-    <select id="game_genre" (change)="onChangeGenre(+$event.target.value)">
+    <select id="game_genre" name="game_genre" [(ngModel)]="filterData.genre">
       <option value="">Aucun</option>
       <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
     </select>
@@ -19,7 +14,7 @@
 
   <div>
     <label for="game_editor">Editor</label>
-    <input type="text" id="game_editor" (change)="onChangeEditor($event.target.value)">
+    <input type="text" id="game_editor" name="game_editor" [(ngModel)]="filterData.editor">
   </div>
 
   <div class="actions">
