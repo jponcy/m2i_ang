@@ -4,6 +4,7 @@
   <button (click)="onDownSize()">-</button>
   <button (click)="onUpSize()">+</button>
   <button (click)="onResetSize()">=</button>
+  <button routerLink="new">Ajouter un jeu</button>
 </div>
 
 <ng-template #loading><p>Chargement...</p></ng-template>
@@ -25,6 +26,7 @@
 
     <main>
       <img
+        *ngIf="game.coverImage"
         [src]="game.coverImage"
         [alt]="'Cover image of' + game.title">
       <p [innerHTML]="description(game)">

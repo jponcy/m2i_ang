@@ -1,4 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -34,7 +35,10 @@ export class GameListComponent implements OnInit, OnDestroy {
   /** Used to free observables. */
   protected subscriptionHandler$ = new Subject();
 
-  constructor(private readonly api: GameApiService) {}
+  constructor(
+      private readonly api: GameApiService,
+      private readonly route: ActivatedRoute,
+      private readonly router: Router) {}
 
   ngOnInit(): void {
     this.api
@@ -111,6 +115,10 @@ export class GameListComponent implements OnInit, OnDestroy {
               this.games.splice(this.games.indexOf(game), 1);
               this.filteredGames.splice(this.filteredGames.indexOf(game), 1);
             });
+        break;
+      case GameListActions.EDIT:
+        // this.router.navigate(['product', game.id, 'edit']);
+        this.router.navigate([game.id, 'edit'], { relativeTo: this.route });
         break;
       default:
         window.alert(`User '${action}' ${game.title}`);

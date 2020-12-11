@@ -32,7 +32,7 @@ export interface GameDto extends GameBase {
 }
 
 export enum GameListActions {
-  FOLLOW = 'follow', SHARE = 'share', BUY = 'buy', DELETE = 'delete'
+  FOLLOW = 'follow', SHARE = 'share', BUY = 'buy', DELETE = 'delete', EDIT = 'edit'
 }
 
 export interface GameListFilter {

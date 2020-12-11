@@ -22,6 +22,11 @@ export class GameListActionsComponent {
     this.actionClick.emit(GameListActions.SHARE);
   }
 
+  onEdit(event: MouseEvent) {
+    event.stopPropagation();
+    this.actionClick.emit(GameListActions.EDIT);
+  }
+
   onBuy(event: MouseEvent) {
     event.stopPropagation();
     this.actionClick.emit(GameListActions.BUY);

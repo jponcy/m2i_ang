@@ -11,7 +11,7 @@ export class TodoCreateReactiveComponent {
 
   form = this.fb.group({
     name:     [null, [Validators.required, Validators.maxLength(5), Validators.pattern(/\w+\d+/)]],
-    finished: false // TODO: to declare as readonly
+    finished: { disabled: true, value: false } // TODO: to declare as readonly
   });
 
   constructor(private readonly fb: FormBuilder) {

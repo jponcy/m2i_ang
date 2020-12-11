@@ -3,4 +3,31 @@
     <ng-container *ngIf="id; else createNew">Edit {{ id }}</ng-container>
     <ng-template #createNew>New</ng-template>
   </h1>
+
+  <ng-template #loading>Chargement...</ng-template>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="loaded; else loading">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="title" formControlName="title">
+    </div>
+
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+
+    <div>
+      <label for="genre">Genres</label>
+      <select id="genres" multiple="true" formControlName="genres">
+        <option *ngFor="let genre of genres$ | async" [value]="genre.id">{{ genre.name }}</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <input type="submit" [disabled]="form.invalid">
+    </div>
+  </form>
+
+  <!-- TODO: Ajouter les champs manquants. -->
 </article>

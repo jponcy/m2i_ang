@@ -69,6 +69,10 @@ export class GameApiService {
     return this.http.delete<void>(`${URL_GAME}/${game.id}`);
   }
 
+  create(game: Game) {
+    return this.http.post<void>(`${URL_GAME}`, game);
+  }
+
   // @Cacheable()
   getAllGenres(ids: number[] = null) {
     let params = new HttpParams()
@@ -158,7 +162,7 @@ export class GameApiService {
       result.push({
         ...game,
         editor: allEditors.find((e: GameEditor) => e.id === publisher),
-        genres: allGenres.filter((g: GameGenre) => game.genres.includes(g.id))
+        genres: allGenres.filter((g: GameGenre) => (game.genres || []).includes(g.id))
       });
     }
 
