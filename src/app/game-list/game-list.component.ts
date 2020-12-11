@@ -88,19 +88,8 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.filteredGames = filterResults;
   }
 
-  description(game: Game) {
-    let result: string;
-    const words = game.description.split(/\s+/);
-
-    if (words.length > 20) {
-      result = words.slice(0, 21).join(' ') + '...';
-    } else {
-      result = game.description;
-    }
-
-    return result;
-  }
-
+  // {{ game.genres | join:', ' }}
+  // {{ game | join:', ':'genres' }}
   drawGenres(game: Game) {
     return game.genres.map(genre => genre.name).join(', ');
   }

@@ -29,7 +29,7 @@
         *ngIf="game.coverImage"
         [src]="game.coverImage"
         [alt]="'Cover image of' + game.title">
-      <p [innerHTML]="description(game)">
+      <p [innerHTML]="game.description | words:10">
       </p>
     </main>
 
