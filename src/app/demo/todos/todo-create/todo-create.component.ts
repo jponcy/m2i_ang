@@ -14,7 +14,13 @@ export class TodoCreateComponent {
   // @ViewChild('todoForm')
   // form: NgForm;
 
+  @ViewChild('monParagraph')
+  monParagraph: HTMLElement;
+
   onSubmit() {
+    // Cette methode n'est appellee que si le formulaire est valide (aucune validation a faire).
     // Process creation.
+
+    console.log('Envoi du formulaire', { dto: this.todo, p: this.monParagraph });
   }
 }

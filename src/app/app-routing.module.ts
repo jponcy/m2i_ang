@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TodoCreateReactiveComponent } from './demo/todos/todo-create-reactive/todo-create-reactive.component';
 import { TodoCreateComponent } from './demo/todos/todo-create/todo-create.component';
 
 import { TodosComponent } from './demo/todos/todos.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
     path: 'todos',
     children: [
       { path: 'new', component: TodoCreateComponent },
+      { path: 'new-reactive', component: TodoCreateReactiveComponent },
       { path: '', component: TodosComponent, pathMatch: 'full' }
     ]
   },

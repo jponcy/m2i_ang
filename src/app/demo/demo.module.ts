@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { InputOutputComponent } from './input-output/input-output.component';
@@ -10,6 +10,7 @@ import { DrawValueComponent } from './observables/draw-value.component';
 import { SubjectComponent } from './observables/subject.component';
 import { TodoCreateComponent } from './todos/todo-create/todo-create.component';
 import { TodosComponent } from './todos/todos.component';
+import { TodoCreateReactiveComponent } from './todos/todo-create-reactive/todo-create-reactive.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TodosComponent } from './todos/todos.component';
     SubComponent,
     SubjectComponent,
     DrawValueComponent,
-    TodoCreateComponent
+    TodoCreateComponent,
+    TodoCreateReactiveComponent
   ],
   exports: [
     TodosComponent,
@@ -28,7 +30,8 @@ import { TodosComponent } from './todos/todos.component';
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    FormsModule,         // Inclue les dependences pour utiliser les template-driven-forms.
+    ReactiveFormsModule, // Inclue les dependences pour utiliser les reactive-forms.
     RouterModule
   ]
 })

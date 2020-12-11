@@ -1,6 +1,9 @@
-<p>
+<p #monParagraph>
   Current value: {{ todo.name || 'empty' }}.
 </p>
+<!--
+<p [innerHTML]="monParagraph.innerHTML">
+</p> -->
 
 <form (ngSubmit)="onSubmit()" #todoForm="ngForm">
   <div>
@@ -8,7 +11,7 @@
     <input type="text" name="name" [(ngModel)]="todo.name" #name="ngModel" required>
 
     <div [hidden]="name.valid || name.pristine">
-      Name is required
+      Un nom est requis.
     </div>
   </div>
 

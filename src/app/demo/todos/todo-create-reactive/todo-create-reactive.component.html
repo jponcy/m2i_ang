@@ -1,0 +1,46 @@
+<p>
+  Content value: {{ form.value.name || 'empty' }}.
+</p>
+
+<form (submit)="onSubmit($event)" [formGroup]="form">
+  <div>
+    <label for="todo_name">Name</label>
+    <input type="text" formControlName="name" [ngClass]="{pristine: name.pristine}">
+
+    <!-- <p>
+      {{ name.errors|json }}
+    </p> -->
+
+    <!-- <div [hidden]="name.valid || name.pristine"></div> -->
+
+    <div *ngIf="name.hasError('required') && !name.pristine" class="error">
+      Un nom est requis.
+    </div>
+
+    <div *ngIf="name.hasError('maxlength') && !name.pristine" class="error">
+      Le nom est trop long.
+      Vous avez saisie {{ name.errors.maxlength.actualLength }} caractères alors
+      que vous pouvez en mettre maximum {{ name.errors.maxlength.requiredLength }}.
+    </div>
+
+    <div *ngIf="name.hasError('pattern') && !name.pristine" class="error">
+      Merci de respecter le format demandée : lettres puis nombres.
+    </div>
+  </div>
+
+  <input type="submit" [disabled]="form.invalid">
+</form>
+
+<!-- <form [formGroup]="utilisateurForm">
+  <input type="text" formControlName="lastname">
+  <input type="text" formControlName="firstname">
+
+  <ng-template formGroupName="address">
+    <input type="number" formControlName="nb">
+    <select formControlName="streetType">
+      <option>street</option>
+      <option>boulvard</option>
+      <option>...</option>
+    </select>
+  </ng-template>
+</form> -->
